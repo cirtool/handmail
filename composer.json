@@ -1,0 +1,30 @@
+{
+    "name": "cirtool/handmail",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Cirtool\\Handmail\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Luis Medina",
+            "email": "git@lmedinam.es"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "laravel/framework": "^10.20",
+        "livewire/livewire": "^2.12"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.20",
+        "orchestra/testbench": "^8.12"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
