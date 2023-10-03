@@ -2,7 +2,9 @@
  
 namespace Cirtool\Handmail;
 
-use Illuminate\Contracts\Foundation\Application;
+use Livewire\Livewire;
+use Cirtool\Handmail\Livewire\Templates\ShowAllTemplates;
+use Cirtool\Handmail\Livewire\Templates\CreateTemplate;
  
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -12,6 +14,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function boot(): void
     {
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'handmail');
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'handmail');
 
@@ -26,6 +29,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/handmail'),
         ], 'public');
+
+        Livewire::component('handmail::show-all-template', ShowAllTemplates::class);
+        Livewire::component('handmail::create-template', CreateTemplate::class);
     }
 
     /**
