@@ -1,5 +1,9 @@
 let mix = require("laravel-mix");
 
-mix.postCss("resources/css/app.css", "public", [
-    require("tailwindcss"),
-]).disableSuccessNotifications();
+mix
+    .js("resources/js/app.js", "public")
+    .postCss("resources/css/app.css", "public", [
+        require("tailwindcss"),
+    ])
+    .setPublicPath("public")
+    .disableSuccessNotifications();
