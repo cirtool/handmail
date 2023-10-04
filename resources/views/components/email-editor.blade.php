@@ -20,7 +20,7 @@
     @endif
   </div>
   <div 
-    class="flex-1 relative flex justify-center px-2 pt-8 pb-2 max-h-[calc(100vh-3rem-1px)] shrink-0 sticky top-12 -mt-px"
+    class="flex-1 relative flex justify-center px-2 pt-16 pb-2 max-h-[calc(100vh-3rem-1px)] shrink-0 sticky top-12 -mt-px"
     x-data="{
       active: 'desktop'
     }"

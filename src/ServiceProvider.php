@@ -6,6 +6,7 @@ use Livewire\Livewire;
 use Illuminate\Contracts\Foundation\Application;
 use Cirtool\Handmail\Livewire\Templates\ShowAllTemplates;
 use Cirtool\Handmail\Livewire\Templates\CreateTemplate;
+use Cirtool\Handmail\Livewire\Templates\EditTemplate;
  
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -33,6 +34,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         Livewire::component('handmail::show-all-template', ShowAllTemplates::class);
         Livewire::component('handmail::create-template', CreateTemplate::class);
+        Livewire::component('handmail::edit-template', EditTemplate::class);
     }
 
     /**
