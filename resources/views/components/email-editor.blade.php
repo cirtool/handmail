@@ -1,10 +1,10 @@
 @props(['tabs' => [], 'footer'])
 
-<div {{ $attributes->merge(['class' => 'flex']) }}>
+<div {{ $attributes->merge(['class' => 'flex flex-col md:flex-row']) }}>
   <div class="flex flex-col w-full max-w-2xl bg-white bg-opacity-75 backdrop-blur backdrop-filter border-r border-gray-200">
     <x-handmail::tabs 
       :items="array_merge(['blocks' => 'Email Blocks'], $tabs)"
-      class="flex-1 px-4 sm:px-6 lg:px-8"
+      class="flex-1 px-4 sm:px-6 lg:px-8 sticky top-12 -mt-px"
     >
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex-1">
         <x-handmail::tab-item name="blocks">
@@ -14,13 +14,13 @@
       </div>
     </x-handmail::tabs>
     @if (isset($footer))
-      <footer {{ $footer->attributes->merge(['class' => 'border-t border-gray-200 px-4 sm:px-6 lg:px-8 py-2']) }}>
+      <footer {{ $footer->attributes->merge(['class' => 'border-t border-gray-200 px-4 sm:px-6 lg:px-8 py-2 bg-white bg-opacity-75 backdrop-blur backdrop-filter sticky bottom-0']) }}>
         {{ $footer }}
       </footer>
     @endif
   </div>
   <div 
-    class="flex-1 relative flex items-center justify-center px-2 pt-8 pb-2"
+    class="flex-1 relative flex justify-center px-2 pt-8 pb-2 max-h-[calc(100vh-3rem-1px)] shrink-0 sticky top-12 -mt-px"
     x-data="{
       active: 'desktop'
     }"
@@ -28,7 +28,7 @@
     <iframe 
       src="http://demo.test/" 
       frameborder="0" 
-      class="w-full h-full border border-gray-200 rounded-md transition-all ease-in-out bg-white bg-opacity-75 backdrop-blur backdrop-filter"
+      class="w-full border border-gray-200 rounded-md transition-all ease-in-out bg-white bg-opacity-75 backdrop-blur backdrop-filter"
       x-bind:class="{
         'max-w-screen-lg max-h-[700px]': active == 'desktop',
         'max-w-screen-md max-h-[900px]': active == 'tablet',

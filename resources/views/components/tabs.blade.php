@@ -6,7 +6,7 @@
   }"
   class="flex-1"
 >
-  <div {{ $attributes->merge(['class' => 'border-b border-gray-200']) }}>
+  <div {{ $attributes->merge(['class' => 'border-b border-gray-200 bg-white bg-opacity-75 backdrop-blur backdrop-filter']) }}>
     <nav class="-mb-px flex space-x-8" aria-label="Tabs">
       @foreach ($items as $name => $item)
         <a 
