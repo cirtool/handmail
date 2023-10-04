@@ -13,7 +13,7 @@
                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                         alt="Your Company">
                 </div>
-                <div class="flex flex-col justify-center ml-2">
+                <div class="flex flex-col justify-center ml-4">
                     <p class="text-sm leading-tight font-medium text-gray-800">Handmail</p>
                     <p class="text-xs text-gray-600 leading-tight">
                         {{ Handmail::getVersion() }} by Cirtool

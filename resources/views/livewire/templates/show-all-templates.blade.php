@@ -26,7 +26,12 @@
       @forelse ($templates as $template)
         <tr wire:key="template-record-{{ $template->uuid }}">
           <x-handmail::td :is-primary="true">
+            <a 
+              href="{{ route('handmail.edit-template', ['template' => $template]) }}" 
+              class="text-indigo-600 hover:text-indigo-900"
+            >
             {{ $template->name }}
+            </a>
           </x-handmail::td>
 
           <x-handmail::td>
@@ -38,12 +43,7 @@
           </x-handmail::td>
 
           <x-handmail::td>
-            <a 
-              href="{{ route('handmail.edit-template', ['template' => $template]) }}" 
-              class="text-indigo-600 hover:text-indigo-900"
-            >
-              Edit<span class="sr-only">, {{ $template->name }}</span>
-            </a>
+            
           </x-handmail::td>
         </tr>
       @empty
