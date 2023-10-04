@@ -4,6 +4,7 @@
   x-data="{
     active: '{{ collect($items)->keys()->first() }}'
   }"
+  class="flex-1"
 >
   <div {{ $attributes->merge(['class' => 'border-b border-gray-200']) }}>
     <nav class="-mb-px flex space-x-8" aria-label="Tabs">
