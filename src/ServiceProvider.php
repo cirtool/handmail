@@ -3,6 +3,7 @@
 namespace Cirtool\Handmail;
 
 use Livewire\Livewire;
+use Illuminate\Contracts\Foundation\Application;
 use Cirtool\Handmail\Livewire\Templates\ShowAllTemplates;
 use Cirtool\Handmail\Livewire\Templates\CreateTemplate;
  
@@ -40,5 +41,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/handmail.php', 'handmail');
+
+        $this->app->singleton(Handmail::class, function (Application $app) {
+            return new Handmail;
+        });
+        $this->app->alias(Handmail::class, 'cirtool.handmail');
     }
 }

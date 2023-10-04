@@ -1,6 +1,6 @@
 <?php
 
-namespace Handmail\Facades;
+namespace Cirtool\Handmail\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

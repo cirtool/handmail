@@ -13,6 +13,12 @@
                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                         alt="Your Company">
                 </div>
+                <div class="flex flex-col justify-center ml-2">
+                    <p class="text-sm leading-tight font-medium text-gray-800">Handmail</p>
+                    <p class="text-xs text-gray-600 leading-tight">
+                        {{ Handmail::getVersion() }} by Cirtool
+                    </p>
+                </div>
             </div>
             <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-4">
                 <x-handmail::navbar-link :to="route('handmail.templates')" :active-when="['handmail/templates']">

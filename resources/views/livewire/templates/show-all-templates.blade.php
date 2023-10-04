@@ -1,4 +1,4 @@
-<section class="mt-4">
+<x-handmail::container title="Templates">
   <x-handmail::primary-button x-data x-on:click="$store.modals.open('create-template')">
     Create Template
   </x-handmail::primary-button>
@@ -48,4 +48,4 @@
   </div>
 
   @livewire('handmail::create-template')
-</section>
+</x-handmail::container>

@@ -31,7 +31,10 @@
         "laravel": {
             "providers": [
                 "Cirtool\\Handmail\\ServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Handmail": "Cirtool\\Handmail\\Facades\\Handmail"
+            }
         }
     }
 }
