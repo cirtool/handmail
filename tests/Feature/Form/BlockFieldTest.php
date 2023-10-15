@@ -4,9 +4,13 @@ use Cirtool\Handmail\Form\BlockField;
 
 test('instance block', function () {
     $block = BlockField::setupFromArray([
-        'title' => [
-            'type' => 'text',
-            'default' => 'Hello World'
+        'name' => 'blocks.0',
+        'fields' => [
+            [
+                'name' => 'title',
+                'type' => 'text',
+                'default' => 'Hello World'
+            ]
         ]
     ]);
 

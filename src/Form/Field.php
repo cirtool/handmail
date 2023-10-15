@@ -19,10 +19,17 @@ abstract class Field implements Renderable
     public static function setupFromArray(array $input): self
     {
         $field = new static;
+        $reflector = new ReflectionClass($field);
 
         $field->data = array_merge([
             '_id' => (string) Str::uuid()
         ], static::dataStructure($input));
+
+        foreach ($input as $key => $value) {
+            if ($reflector->hasProperty($key)) {
+                $field->{$key} = $value;
+            }
+        }
 
         return $field;
     }

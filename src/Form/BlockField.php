@@ -15,7 +15,7 @@ class BlockField extends Field
 
     protected function view(): string
     {
-        return '';
+        return 'handmail::form.block';
     }
 
     public static function setupFromArray(array $input): self
@@ -24,18 +24,24 @@ class BlockField extends Field
 
         $block->data = array_merge([
             '_id' => (string) Str::uuid(),
-            '_pos' => 0
+            '_pos' => 0,
+            'items' => []
         ], static::dataStructure($input));
 
-        foreach ($input as $key => $value) {
+        $block->name = $input['name'];
+
+        foreach ($input['fields'] as $key => $value) {
             /** @var \Cirtool\Handmail\Form\Field */
             $className = config('handmail.fields.' . $value['type']);
             unset($value['type']);
 
+            $shortName = $value['name']; // Original field name
+
+            $value['name'] = $block->name . '.items.' . $value['name']; // Override name prefixing parent name
             $field = $className::setupFromArray($value);
             
+            $block->data['items'][$shortName] = $field->data;
             $block->addField($key, $field);
-            $block->name = $key;
         }
 
         return $block;
