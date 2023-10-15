@@ -1,2 +1,6 @@
 .env
-.env.dusk
+.env.*
+!.env.example
+
+testbench.yaml
+testbench.yaml.backup

@@ -16,7 +16,8 @@
     "minimum-stability": "stable",
     "require": {
         "laravel/framework": "^10.20",
-        "livewire/livewire": "^2.12"
+        "livewire/livewire": "^2.12",
+        "yosymfony/toml": "^1.0"
     },
     "require-dev": {
         "pestphp/pest": "^2.20",

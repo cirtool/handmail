@@ -1,9 +1,11 @@
-providers: []
+providers:
+  - Workbench\App\Providers\WorkbenchServiceProvider
 
 migrations:
   - workbench/database/migrations
 
 seeders: []
+laravel: ./workbench
 
 workbench:
   start: '/'
