@@ -2,10 +2,12 @@
 
 namespace Tests;
 
-use Orchestra\Testbench\TestCase as BaseTestCase;
+use Orchestra\Testbench\Concerns\WithWorkbench;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
+    use WithWorkbench;
+    
     /**
      * Automatically enables package discoveries.
      *
