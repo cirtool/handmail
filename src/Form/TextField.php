@@ -11,4 +11,9 @@ class TextField extends Field
         $value = isset($input['default']) ? $input['default'] : '';
         return ['value' => $value];
     }
+
+    protected function view(): string
+    {
+        return '';
+    }
 }

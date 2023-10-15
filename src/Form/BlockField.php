@@ -13,6 +13,11 @@ class BlockField extends Field
         return [];
     }
 
+    protected function view(): string
+    {
+        return '';
+    }
+
     public static function setupFromArray(array $input): self
     {
         $block = new static;
@@ -28,7 +33,9 @@ class BlockField extends Field
             unset($value['type']);
 
             $field = $className::setupFromArray($value);
+            
             $block->addField($key, $field);
+            $block->name = $key;
         }
 
         return $block;
