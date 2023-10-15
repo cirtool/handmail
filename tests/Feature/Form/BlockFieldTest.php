@@ -5,7 +5,8 @@ use Cirtool\Handmail\Form\BlockField;
 test('instance block', function () {
     $block = BlockField::setupFromArray([
         'title' => [
-            'type' => 'text'
+            'type' => 'text',
+            'default' => 'Hello World'
         ]
     ]);
 

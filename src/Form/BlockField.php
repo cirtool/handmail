@@ -27,11 +27,11 @@ class BlockField extends Field
             $className = config('handmail.fields.' . $value['type']);
             unset($value['type']);
 
-            $field = $className::setupFromArray($input);
+            $field = $className::setupFromArray($value);
             $block->addField($key, $field);
         }
 
-        return $field;
+        return $block;
     }
 
     public function addField($key, $value): self
