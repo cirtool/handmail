@@ -4,6 +4,7 @@ namespace Cirtool\Handmail;
 
 use Yosymfony\Toml\Toml;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -43,7 +44,13 @@ class Handmail
         $files = new RecursiveIteratorIterator($dir);
 
         foreach ($files as $file) {
-            $config = Toml::parseFile($file->getPathname());
+            $pathname = $file->getPathname();
+
+            if (! Str::of($pathname)->endsWith('.toml')) {
+                continue;
+            }
+
+            $config = Toml::parseFile($pathname);
 
             if (! isset($config['name'])) {
                 $config['name'] = $config['view'];

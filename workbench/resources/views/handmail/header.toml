@@ -2,6 +2,6 @@ label = "Header"
 view = "handmail.header"
 
 [[fields]]
-name = "content"
 type = "text"
 label = "Content"
+name = "content"
