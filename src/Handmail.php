@@ -2,6 +2,7 @@
 
 namespace Cirtool\Handmail;
 
+use Yosymfony\Toml\Toml;
 use Illuminate\Support\Collection;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -20,6 +21,10 @@ class Handmail
      */
     protected Collection $blocks;
 
+    function __construct() {
+        $this->blocks = collect();
+    }
+
     /**
      * Get current Handmail version.
      */
@@ -34,9 +39,21 @@ class Handmail
      */
     public function discoverBlocks(string $folderPath): void
     {
-        $dir = new RecursiveDirectoryIterator($folderPath);
+        $dir = new RecursiveDirectoryIterator($folderPath, RecursiveDirectoryIterator::SKIP_DOTS);
         $files = new RecursiveIteratorIterator($dir);
 
-        
+        foreach ($files as $file) {
+            $config = Toml::parseFile($file->getPathname());
+
+            if (! isset($config['name'])) {
+                $config['name'] = $config['view'];
+            }
+
+            /** @var \Cirtool\Handmail\Form\Field */
+            $className = config('handmail.block_field', \Cirtool\Handmail\Form\BlockField::class);
+            $this->blocks->push($className::setupFromArray($config));
+        }
+
+        dd($this);
     }
 }

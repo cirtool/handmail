@@ -21,6 +21,7 @@ class BlockField extends Field
     public static function setupFromArray(array $input): self
     {
         $block = new static;
+        $block->config = $input;
 
         $block->data = array_merge([
             '_id' => (string) Str::uuid(),
@@ -33,7 +34,7 @@ class BlockField extends Field
         foreach ($input['fields'] as $key => $value) {
             /** @var \Cirtool\Handmail\Form\Field */
             $className = config('handmail.fields.' . $value['type']);
-            unset($value['type']);
+            $value = collect($value)->except(['type'])->toArray();
 
             $shortName = $value['name']; // Original field name
 

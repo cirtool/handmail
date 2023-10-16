@@ -8,5 +8,5 @@ return [
     'fields' => [
         'text' => \Cirtool\Handmail\Form\TextField::class
     ],
-    'blocks' => []
+    'block_field' => \Cirtool\Handmail\Form\BlockField::class
 ];

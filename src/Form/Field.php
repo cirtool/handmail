@@ -12,6 +12,8 @@ abstract class Field implements Renderable
     
     public array $data;
 
+    public array $config;
+
     protected static abstract function dataStructure(array $input): array;
 
     protected abstract function view(): string;
@@ -19,6 +21,7 @@ abstract class Field implements Renderable
     public static function setupFromArray(array $input): self
     {
         $field = new static;
+        $field->config = $input;
         $reflector = new ReflectionClass($field);
 
         $field->data = array_merge([
