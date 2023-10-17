@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Panel Configuration
@@ -45,4 +46,5 @@ return [
     'fields' => [
         'text' => \Cirtool\Handmail\Form\TextField::class
     ]
+    
 ];
