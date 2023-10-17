@@ -51,16 +51,11 @@ class Handmail
             }
 
             $config = Toml::parseFile($pathname);
-
-            if (! isset($config['name'])) {
-                $config['name'] = $config['view'];
-            }
+            $config['name'] = $config['name'] ?? $config['view'];
 
             /** @var \Cirtool\Handmail\Form\Field */
-            $className = config('handmail.block_field', \Cirtool\Handmail\Form\BlockField::class);
+            $className = config('handmail.blocks.field', \Cirtool\Handmail\Form\BlockField::class);
             $this->blocks->push($className::setupFromArray($config));
         }
-
-        dd($this);
     }
 }

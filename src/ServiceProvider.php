@@ -13,7 +13,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot(Handmail $handmail): void
     {
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
@@ -35,6 +35,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         Livewire::component('handmail::show-all-template', ShowAllTemplates::class);
         Livewire::component('handmail::create-template', CreateTemplate::class);
         Livewire::component('handmail::edit-template', EditTemplate::class);
+
+        $handmail->discoverBlocks(config('handmail.blocks.path'));
     }
 
     /**

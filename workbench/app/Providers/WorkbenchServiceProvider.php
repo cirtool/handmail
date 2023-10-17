@@ -20,6 +20,6 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function boot(Handmail $handmail): void
     {
-        $handmail->discoverBlocks(resource_path('views/handmail'));
+        // $handmail->discoverBlocks(resource_path('views/handmail'));
     }
 }

@@ -3,5 +3,5 @@ view = "handmail.header"
 
 [[fields]]
 type = "text"
-label = "Content"
+label = "form.content"
 name = "content"
