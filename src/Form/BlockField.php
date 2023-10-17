@@ -2,50 +2,28 @@
 
 namespace Cirtool\Handmail\Form;
 
-use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class BlockField extends Field
 {
-    protected $fields = [];
+    protected Collection $fields;
 
-    protected static function dataStructure(array $input): array
-    {
-        return [];
-    }
+    public function __construct(public array $config) {
+        parent::__construct($config);
+        $this->fields = collect();
 
-    protected function view(): string
-    {
-        return 'handmail::form.block';
-    }
-
-    public static function setupFromArray(array $input): self
-    {
-        $block = new static;
-        $block->config = $input;
-
-        $block->data = array_merge([
-            '_id' => (string) Str::uuid(),
-            '_pos' => 0,
-            'items' => []
-        ], static::dataStructure($input));
-
-        $block->name = $input['name'];
-
-        foreach ($input['fields'] as $key => $value) {
+        foreach ($config['fields'] as $key => $value) {
             /** @var \Cirtool\Handmail\Form\Field */
             $className = config('handmail.fields.' . $value['type']);
             $value = collect($value)->except(['type'])->toArray();
 
             $shortName = $value['name']; // Original field name
 
-            $value['name'] = $block->name . '.items.' . $value['name']; // Override name prefixing parent name
-            $field = $className::setupFromArray($value);
+            $value['name'] = $this->name . '.items.' . $value['name']; // Override name prefixing parent name
+            $field = new $className($value);
             
-            $block->data['items'][$shortName] = $field->data;
-            $block->addField($key, $field);
+            $this->addField($shortName, $field);
         }
-
-        return $block;
     }
 
     public function addField($key, $value): self
@@ -53,4 +31,19 @@ class BlockField extends Field
         $this->fields[$key] = $value;
         return $this;
     }
+
+    public function data(): array
+    {
+        return [
+            'position' => 0,
+            'items' => $this->fields->map(
+                    fn ($field) => $field->data()
+                )->toArray()
+        ];
+    }
+
+    protected function view(): string
+    {
+        return 'handmail::form.block';
+    }    
 }

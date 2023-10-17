@@ -55,7 +55,7 @@ class Handmail
 
             /** @var \Cirtool\Handmail\Form\Field */
             $className = config('handmail.blocks.field', \Cirtool\Handmail\Form\BlockField::class);
-            $this->blocks->push($className::setupFromArray($config));
+            $this->blocks->push(new $className($config));
         }
     }
 }

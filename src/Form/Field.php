@@ -4,41 +4,34 @@ namespace Cirtool\Handmail\Form;
 
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Collection;
 use ReflectionClass;
 
 abstract class Field implements Renderable
 {
     public string $name;
-    
-    public array $data;
 
-    public array $config;
-
-    protected static abstract function dataStructure(array $input): array;
+    public abstract function data(): array;
 
     protected abstract function view(): string;
 
-    public static function setupFromArray(array $input): self
-    {
-        $field = new static;
-        $field->config = $input;
-        $reflector = new ReflectionClass($field);
+    public function __construct(public array $config) {
+        $properties = $this->properties();
 
-        $field->data = array_merge([
-            '_id' => (string) Str::uuid()
-        ], static::dataStructure($input));
-
-        foreach ($input as $key => $value) {
-            if ($reflector->hasProperty($key)) {
-                $field->{$key} = $value;
+        foreach ($config as $key => $value) {
+            if ($properties->contains($key)) {
+                $this->{$key} = $value;
             }
         }
-
-        return $field;
     }
 
     public function render()
     {
         return view($this->view(), get_object_vars($this));
+    }
+
+    protected function properties(): Collection
+    {
+        return collect(['name']);
     }
 }

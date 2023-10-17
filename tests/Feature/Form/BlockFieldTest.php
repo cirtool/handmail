@@ -3,7 +3,7 @@
 use Cirtool\Handmail\Form\BlockField;
 
 test('instance block', function () {
-    $block = BlockField::setupFromArray([
+    $block = new BlockField([
         'name' => 'blocks.0',
         'fields' => [
             [
@@ -14,5 +14,7 @@ test('instance block', function () {
         ]
     ]);
 
-    expect($block->data)->not()->toBeEmpty();
+    dd($block->data());
+
+    expect($block->data())->not()->toBeEmpty();
 });

@@ -2,18 +2,26 @@
 
 namespace Cirtool\Handmail\Form;
 
+use Illuminate\Support\Collection;
+
 class TextField extends Field
 {
     public string $label;
 
-    protected static function dataStructure(array $input): array
+    public string $default = '';
+
+    public function data(): array
     {
-        $value = isset($input['default']) ? $input['default'] : '';
-        return ['value' => $value];
+        return ['value' => $this->default];
     }
 
     protected function view(): string
     {
         return '';
+    }
+
+    protected function properties(): Collection
+    {
+        return parent::properties()->merge(['default', 'label']);
     }
 }
