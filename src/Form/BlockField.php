@@ -6,6 +6,8 @@ use Illuminate\Support\Collection;
 
 class BlockField extends Field
 {
+    public string $label;
+
     protected Collection $fields;
 
     public function __construct(public array $config) {
@@ -46,4 +48,9 @@ class BlockField extends Field
     {
         return 'handmail::form.block';
     }    
+
+    protected function properties(): Collection
+    {
+        return parent::properties()->merge(['label']);
+    }
 }

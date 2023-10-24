@@ -34,6 +34,16 @@ class Handmail
         return self::VERSION;
     }
 
+    public function getBlocks(): Collection
+    {
+        return $this->blocks;
+    }
+
+    public function findBlock(string $name)
+    {
+        return $this->blocks->first(fn ($block) => $block->name == $name);
+    }
+
     /**
      * Recursive discover building blocks in a folder 
      * path, reading every TOML file.

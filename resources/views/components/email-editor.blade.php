@@ -8,7 +8,50 @@
     >
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex-1">
         <x-handmail::tab-item name="blocks">
-          Hello World
+          <div x-data="{ openModal: false }">
+            <button 
+              type="button" 
+              class="w-full rounded-md bg-indigo-50 px-2 py-1 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
+              x-on:click="openModal = true"
+            >
+              Add Block
+            </button>
+            <section class="absolute top-0 h-[calc(100vh-12rem)] flex justify-end w-full pointer-events-none">
+              <div 
+                class="absolute bg-white shadow w-full bottom-0 rounded-md max-h-[calc(50vh)] overflow-auto pointer-events-auto"
+                x-on:click.away="openModal = false"
+                x-show="openModal"
+                x-transition:enter="ease-out duration-300"
+                x-transition:enter-start="opacity-0 translate-y-6 scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 scale-100" 
+                x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                x-transition:leave-end="opacity-0 translate-y-6 scale-95"
+              >
+                <h3 
+                  class="sticky top-0 text-lg font-semibold leading-6 text-gray-900 border-gray-200 border-b px-4 py-2 bg-white bg-opacity-75 backdrop-blur backdrop-filter"
+                >
+                  Available Blocks
+                </h3>
+                <div class="py-2 px-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  @forelse ($this->getBlocks() as $block)
+                    <button 
+                      type="button" 
+                      class="flex justify-between gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      wire:click="appendBlock('{{ $block->name }}')"
+                    >
+                      <span>{{ $block->label }}</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                      </svg>
+                    </button>
+                  @empty
+                    <p class="text-gray-500">No blocks availables, please see the documentation</p>
+                  @endforelse
+                </div>
+              </div>
+            </section>
+          </div>
         </x-handmail::tab-item>
         {{ $slot }}
       </div>
