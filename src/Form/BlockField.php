@@ -3,6 +3,7 @@
 namespace Cirtool\Handmail\Form;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class BlockField extends Field
 {
@@ -19,12 +20,8 @@ class BlockField extends Field
             $className = config('handmail.fields.' . $value['type']);
             $value = collect($value)->except(['type'])->toArray();
 
-            $shortName = $value['name']; // Original field name
-
-            $value['name'] = $this->name . '.items.' . $value['name']; // Override name prefixing parent name
             $field = new $className($value);
-            
-            $this->addField($shortName, $field);
+            $this->addField($value['name'], $field);
         }
     }
 
@@ -34,20 +31,22 @@ class BlockField extends Field
         return $this;
     }
 
-    public function data(): array
-    {
-        return [
-            'position' => 0,
-            'items' => $this->fields->map(
-                    fn ($field) => $field->data()
-                )->toArray()
-        ];
-    }
-
     protected function view(): string
     {
         return 'handmail::form.block';
-    }    
+    } 
+
+    public function data(array $input): Collection
+    {
+        return parent::data($input)->merge([
+            'id' => Str::uuid(),
+            'name' => $this->name,
+            'position' => 0,
+            'items' => $this->fields->map(
+                    fn ($field) => $field->data(['model' => $input['model'] . '.items.' . $field->name])
+                )->toArray()
+        ]);
+    } 
 
     protected function properties(): Collection
     {

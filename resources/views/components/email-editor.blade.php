@@ -9,6 +9,11 @@
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex-1">
         <x-handmail::tab-item name="blocks">
           <div x-data="{ openModal: false }">
+            @foreach ($this->blocks as $block)
+              <div wire:key="{{ $block['id'] }}">
+                {!! Handmail::findBlock($block['name'])->render() !!}
+              </div>
+            @endforeach
             <button 
               type="button" 
               class="w-full rounded-md bg-indigo-50 px-2 py-1 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
@@ -34,11 +39,11 @@
                   Available Blocks
                 </h3>
                 <div class="py-2 px-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  @forelse ($this->getBlocks() as $block)
+                  @forelse ($this->getAvailableBlocks() as $block)
                     <button 
                       type="button" 
                       class="flex justify-between gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                      wire:click="appendBlock('{{ $block->name }}')"
+                      x-on:click.prevent="$wire.appendBlock('{{ $block->name }}').then(() => openModal = false)"
                     >
                       <span>{{ $block->label }}</span>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">

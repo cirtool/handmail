@@ -10,14 +10,14 @@ class TextField extends Field
 
     public string $default = '';
 
-    public function data(): array
+    public function data(array $input): Collection
     {
-        return ['value' => $this->default];
+        return parent::data($input)->merge(['value' => $this->default]);
     }
 
     protected function view(): string
     {
-        return '';
+        return 'handmail::form.text-field';
     }
 
     protected function properties(): Collection
