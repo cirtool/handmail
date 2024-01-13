@@ -29,7 +29,7 @@ class Template extends Model
      * @var array
      */
     protected $attributes = [
-        'structure' => '[]',
+        'structure' => '{}',
     ];
 
     /**

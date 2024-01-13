@@ -2,6 +2,7 @@
 
 namespace Cirtool\Handmail;
 
+use Cirtool\Handmail\Form\BlockField;
 use Yosymfony\Toml\Toml;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -36,12 +37,24 @@ class Handmail
 
     public function getBlocks(): Collection
     {
-        return $this->blocks;
+        return $this->blocks->filter(
+            fn (BlockField $block) => $block->isLayout === false);
     }
 
     public function findBlock(string $name)
     {
-        return $this->blocks->first(fn ($block) => $block->name == $name);
+        return $this->getBlocks()->first(fn ($block) => $block->name == $name);
+    }
+
+    public function getLayouts(): Collection
+    {
+        return $this->blocks->filter(
+            fn (BlockField $block) => $block->isLayout === true);
+    }
+
+    public function findLayout(string $name)
+    {
+        return $this->getLayouts()->first(fn ($block) => $block->name == $name);
     }
 
     /**

@@ -9,6 +9,8 @@ class BlockField extends Field
 {
     public string $label;
 
+    public bool $isLayout = false;
+
     protected Collection $fields;
 
     public function __construct(public array $config) {

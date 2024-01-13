@@ -8,7 +8,17 @@ use Livewire\Component;
 
 abstract class EmailEditor extends Component
 {
+    public array $layout = [];
+
+    public string $selectedLayout;
+
     public array $blocks = [];
+
+    public function updatingSelectedLayout($value, $key)
+    {
+        $this->layout = Handmail::findLayout($value)
+            ->data(['model' => 'layout'])->toArray();
+    }
 
     public function appendBlock(string $name)
     {

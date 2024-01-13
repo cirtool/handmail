@@ -16,6 +16,11 @@ class EditTemplate extends EmailEditor
     public function mount(Template $template)
     {
         $this->template = $template;
+
+        $this->layout = $template['structure']['layout'];
+        $this->selectedLayout = $this->layout['name'];
+
+        $this->blocks = $template['structure']['blocks'];
     }
 
     public function render()
@@ -26,6 +31,10 @@ class EditTemplate extends EmailEditor
 
     public function save()
     {
+        $this->template->structure = [
+            'layout' => $this->layout, 'blocks' => $this->blocks
+        ];
+
         $this->template->save();
     }
 }

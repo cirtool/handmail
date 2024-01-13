@@ -3,7 +3,7 @@
 <div {{ $attributes->merge(['class' => 'flex flex-col md:flex-row']) }}>
   <div class="flex flex-col w-full max-w-2xl bg-white bg-opacity-75 backdrop-blur backdrop-filter border-r border-gray-200">
     <x-handmail::tabs 
-      :items="array_merge(['blocks' => 'Email Blocks'], $tabs)"
+      :items="array_merge(['blocks' => 'Email Blocks', 'layout' => 'Layout'], $tabs)"
       class="flex-1 px-4 sm:px-6 lg:px-8 sticky top-12 -mt-px"
     >
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex-1">
@@ -51,11 +51,23 @@
                       </svg>
                     </button>
                   @empty
-                    <p class="text-gray-500">No blocks availables, please see the documentation</p>
+                    <p class="text-gray-500 col-span-2">No blocks availables, please see the documentation</p>
                   @endforelse
                 </div>
               </div>
             </section>
+          </div>
+        </x-handmail::tab-item>
+        <x-handmail::tab-item name="layout">
+          <div class="space-y-4">
+            <x-handmail::select wire:model="selectedLayout">
+              @foreach (Handmail::getLayouts() as $layout)
+                <option value="{{ $layout->name }}">
+                  {{ $layout->label }}
+                </option>
+              @endforeach
+            </x-handmail::select>
+            {!! Handmail::findLayout($this->layout['name'])->context($this->layout)->render() !!}
           </div>
         </x-handmail::tab-item>
         {{ $slot }}

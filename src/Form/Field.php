@@ -43,6 +43,6 @@ abstract class Field implements Renderable
 
     protected function properties(): Collection
     {
-        return collect(['name']);
+        return collect(['name', 'isLayout']);
     }
 }
