@@ -11,6 +11,8 @@ abstract class Field implements Renderable
 {
     public string $name;
 
+    public array $context = [];
+
     protected abstract function view(): string;
 
     public function __construct(public array $config) {
@@ -31,6 +33,12 @@ abstract class Field implements Renderable
     public function data(array $input): Collection
     {
         return collect($input);
+    }
+
+    public function context(array $context): self
+    {
+        $this->context = $context;
+        return $this;
     }
 
     protected function properties(): Collection

@@ -8,10 +8,10 @@
     >
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex-1">
         <x-handmail::tab-item name="blocks">
-          <div x-data="{ openModal: false }">
+          <div class="space-y-4" x-data="{ openModal: false }">
             @foreach ($this->blocks as $block)
               <div wire:key="{{ $block['id'] }}">
-                {!! Handmail::findBlock($block['name'])->render() !!}
+                {!! Handmail::findBlock($block['name'])->context($block)->render() !!}
               </div>
             @endforeach
             <button 

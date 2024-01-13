@@ -13,9 +13,10 @@ abstract class EmailEditor extends Component
     public function appendBlock(string $name)
     {
         $block = Handmail::findBlock($name);
+
         $this->blocks[] = $block->data([
             'model' => 'blocks.' . count($this->blocks)
-        ]);
+        ])->toArray();
     }
 
     public function getAvailableBlocks(): Collection
