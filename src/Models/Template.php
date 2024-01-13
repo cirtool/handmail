@@ -31,4 +31,13 @@ class Template extends Model
     protected $attributes = [
         'structure' => '[]',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'structure' => 'array',
+    ];
 }
