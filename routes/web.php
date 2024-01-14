@@ -1,5 +1,7 @@
 <?php
 
+use Cirtool\Handmail\Controllers\Templates\TemplateWebview;
+use Cirtool\Handmail\Controllers\Templates\TemplateWebviewController;
 use Illuminate\Support\Facades\Route;
 use Cirtool\Handmail\Livewire\Templates\ShowAllTemplates;
 use Cirtool\Handmail\Livewire\Templates\EditTemplate;
@@ -12,6 +14,7 @@ if (config('handmail.panel.is_active', false)) {
         ->group(function () {
             Route::get('/templates', ShowAllTemplates::class)->name('templates');
             Route::get('/templates/{template}/edit', EditTemplate::class)->name('edit-template');
+            Route::get('/templates/{template}/webview', TemplateWebviewController::class)->name('template-webview');
             Route::get('/emails', ShowAllEmails::class)->name('emails');
         });
 }

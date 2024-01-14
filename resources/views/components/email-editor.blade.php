@@ -11,7 +11,7 @@
           <div class="space-y-4" x-data="{ openModal: false }">
             @foreach ($this->blocks as $block)
               <div wire:key="{{ $block['id'] }}">
-                {!! Handmail::findBlock($block['name'])->context($block)->render() !!}
+                {!! Handmail::findBlock($block['name'])->context($block)->renderForm() !!}
               </div>
             @endforeach
             <button 
@@ -67,7 +67,7 @@
                 </option>
               @endforeach
             </x-handmail::select>
-            {!! Handmail::findLayout($this->layout['name'])->context($this->layout)->render() !!}
+            {!! Handmail::findLayout($this->layout['name'])->context($this->layout)->renderForm() !!}
           </div>
         </x-handmail::tab-item>
         {{ $slot }}
@@ -86,7 +86,7 @@
     }"
   >
     <iframe 
-      src="http://demo.test/" 
+      src="{{ route('handmail.template-webview', ['template' => $this->template, 'q' => \Illuminate\Support\Str::random()]) }}" 
       frameborder="0" 
       class="w-full border border-gray-200 rounded-md transition-all ease-in-out bg-white bg-opacity-75 backdrop-blur backdrop-filter"
       x-bind:class="{

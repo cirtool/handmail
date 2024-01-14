@@ -25,9 +25,18 @@ abstract class Field implements Renderable
         }
     }
 
-    public function render()
+    public function renderForm()
     {
         return view($this->view(), get_object_vars($this));
+    }
+
+    public function render()
+    {
+        $values = collect($this->context['items'])->map(function ($item) {
+            return $item['value'];
+        });
+
+        return view($this->name, $values->toArray());
     }
 
     public function data(array $input): Collection

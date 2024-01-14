@@ -40,4 +40,9 @@ class Template extends Model
     protected $casts = [
         'structure' => 'array',
     ];
+
+    public function webview()
+    {
+        return view('handmail::webview', ['model' => $this]);
+    }
 }
