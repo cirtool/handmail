@@ -45,7 +45,13 @@ class Template extends Model
 
     public function webview()
     {
-        return view('handmail::webview', ['model' => $this]);
+        $values = collect($this->structure['layout']['items'])
+            ->map(fn ($item) => $item['value']);
+
+        return view('handmail::webview', [
+            'model' => $this, 
+            'values' => $values
+        ]);
     }
 
     /**
@@ -66,6 +72,17 @@ class Template extends Model
                                 'model' => $block['model'] . '.items.' . $field->name
                             ])->toArray();
                         }
+                    }
+                }
+
+                $layout = Handmail::findLayout($output['layout']['name'])
+                    ->context($output['layout']);
+
+                foreach ($layout->getFields() as $key => $field) {
+                    if (! array_key_exists($key, $output['layout']['items'])) {
+                        $output['layout']['items'][$key] = $field->data([
+                            'model' => 'layout.items.' . $field->name
+                        ])->toArray();
                     }
                 }
 
