@@ -27,6 +27,11 @@ class BlockField extends Field
         }
     }
 
+    public function getFields(): Collection
+    {
+        return $this->fields;
+    }
+
     public function addField($key, $value): self
     {
         $this->fields[$key] = $value;

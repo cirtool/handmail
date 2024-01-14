@@ -1,5 +1,4 @@
 <div>
-   
     @foreach ($fields as $key => $field)
         {!! $field->context($context['items'][$key])->renderForm() !!}
     @endforeach
