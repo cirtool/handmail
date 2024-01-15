@@ -44,7 +44,8 @@ return [
     */
     
     'fields' => [
-        'text' => \Cirtool\Handmail\Form\TextField::class
+        'text' => \Cirtool\Handmail\Form\TextField::class,
+        'select' => \Cirtool\Handmail\Form\SelectField::class
     ]
     
 ];
