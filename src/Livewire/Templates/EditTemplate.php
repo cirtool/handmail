@@ -37,4 +37,11 @@ class EditTemplate extends EmailEditor
 
         $this->template->save();
     }
+
+    public function download()
+    {
+        return response()->streamDownload(function () {
+            echo $this->template->webview();
+        }, "{$this->template->name} - Template.html");
+    }
 }

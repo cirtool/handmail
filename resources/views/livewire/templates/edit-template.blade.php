@@ -10,5 +10,8 @@
     <x-handmail::primary-button wire:click.prevent="save">
       Save
     </x-handmail::primary-button>
+    <x-handmail::primary-button wire:click.prevent="download">
+      Download
+    </x-handmail::primary-button>
   </x-slot:footer>
 </x-handmail::email-editor>
