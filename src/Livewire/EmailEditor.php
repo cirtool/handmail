@@ -29,6 +29,14 @@ abstract class EmailEditor extends Component
         ])->toArray();
     }
 
+    public function removeBlock(string $id)
+    {
+        $index = collect($this->blocks)
+            ->search(fn ($block) => $block['id'] == $id);
+
+        unset($this->blocks[$index]);
+    }
+
     public function getAvailableBlocks(): Collection
     {
         return Handmail::getBlocks();

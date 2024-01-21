@@ -4,7 +4,7 @@
   <div class="flex flex-col w-full max-w-2xl bg-white bg-opacity-75 backdrop-blur backdrop-filter border-r border-gray-200">
     <x-handmail::tabs 
       :items="array_merge(['blocks' => 'Email Blocks', 'layout' => 'Layout'], $tabs)"
-      class="flex-1 px-4 sm:px-6 lg:px-8 sticky top-12 -mt-px"
+      class="flex-1 px-4 sm:px-6 lg:px-8 sticky top-12 -mt-px z-10"
     >
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex-1">
         <x-handmail::tab-item name="blocks">
