@@ -43,10 +43,26 @@ class Template extends Model
         'structure' => 'array',
     ];
 
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::saving(function (Template &$template) {
+            $template->html = $template->webview();
+        });
+    }
+
     public function webview()
     {
-        $values = collect($this->structure['layout']['items'])
-            ->map(fn ($item) => $item['value']);
+        $layoutData = Handmail::findLayout($this->structure['layout']['name'])
+            ->context($this->structure['layout'])->getRenderData();
+
+        return view('handmail::webview', [
+            'blocks' => $this->structure['blocks'], 
+            'layoutName' => $this->structure['layout']['name'],
+            'values' => $layoutData
+        ]);
 
         return view('handmail::webview', [
             'model' => $this, 
