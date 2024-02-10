@@ -3,6 +3,7 @@
 namespace Cirtool\Handmail\Livewire;
 
 use Cirtool\Handmail\Facades\Handmail;
+use Cirtool\Handmail\Form\BlockField;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
@@ -13,6 +14,8 @@ abstract class EmailEditor extends Component
     public string $selectedLayout;
 
     public array $blocks = [];
+
+    protected $listeners = ['modelValueDefined'];
 
     public function updatingSelectedLayout($value, $key)
     {
@@ -40,5 +43,40 @@ abstract class EmailEditor extends Component
     public function getAvailableBlocks(): Collection
     {
         return Handmail::getBlocks();
+    }
+
+    public function modelValueDefined($key, $value): void
+    {
+        $publicProperties = array_keys($this->getPublicPropertiesDefinedBySubClass());
+        
+        if (in_array($this->beforeFirstDot($key), $publicProperties)) {
+            data_set($this, $key, $value);
+        }
+    }
+
+    public function getBlocks(): array
+    {
+        $blocks = [];
+
+        foreach ($this->blocks as $key => $block) {
+            $blocks[$key] = Handmail::findBlock($block['name'])->context($block);
+        }
+
+        return $blocks;
+    }
+    
+    protected function fireBlockEvent(string $event): void
+    {
+        $layout = Handmail::findLayout($this->layout['name'])->context($this->layout);
+
+        if (method_exists($layout, $event)) {
+            $this->layout = $layout->{$event}();
+        }
+
+        foreach ($this->getBlocks() as $key => $block) {
+            if (method_exists($block, $event)) {
+                $this->blocks[$key] = $block->{$event}();
+            }
+        }
     }
 }

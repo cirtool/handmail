@@ -47,6 +47,21 @@ return [
         'text' => \Cirtool\Handmail\Form\TextField::class,
         'select' => \Cirtool\Handmail\Form\SelectField::class,
         'color' => \Cirtool\Handmail\Form\ColorField::class,
+        'file' => \Cirtool\Handmail\Form\FileField::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | File Uploader
+    |--------------------------------------------------------------------------
+    |
+    | Default file uploader configuration.
+    |
+    */
+    'file_uploader' => [
+        'disk' => 'public',
+        'directory' => 'handmail-files',
+        'rule' => 'image|max:2048'
     ]
     
 ];

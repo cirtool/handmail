@@ -2,6 +2,7 @@
 
 namespace Cirtool\Handmail\Livewire\Templates;
 
+use Cirtool\Handmail\Facades\Handmail;
 use Cirtool\Handmail\Livewire\EmailEditor;
 use Cirtool\Handmail\Models\Template;
 
@@ -31,11 +32,16 @@ class EditTemplate extends EmailEditor
 
     public function save()
     {
+        $this->fireBlockEvent('saving');
+
         $this->template->structure = [
-            'layout' => $this->layout, 'blocks' => $this->blocks
+            'layout' => $this->layout, 
+            'blocks' => $this->blocks
         ];
 
         $this->template->save();
+
+        $this->fireBlockEvent('saved');
     }
 
     public function download()

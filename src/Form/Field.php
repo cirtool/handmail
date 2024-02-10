@@ -32,11 +32,12 @@ abstract class Field implements Renderable
 
     public function render()
     {
-        $values = collect($this->context['items'])->map(function ($item) {
-            return $item['value'];
-        });
+        return view($this->name, $this->getRenderData());
+    }
 
-        return view($this->name, $values->toArray());
+    public function getRenderData()
+    {
+        return $this->context['value'];
     }
 
     public function data(array $input): Collection

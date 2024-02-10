@@ -2,11 +2,12 @@
  
 namespace Cirtool\Handmail;
 
-use Livewire\Livewire;
-use Illuminate\Contracts\Foundation\Application;
+use Cirtool\Handmail\Livewire\Form\FileUploader;
 use Cirtool\Handmail\Livewire\Templates\ShowAllTemplates;
 use Cirtool\Handmail\Livewire\Templates\CreateTemplate;
 use Cirtool\Handmail\Livewire\Templates\EditTemplate;
+use Livewire\Livewire;
+use Illuminate\Contracts\Foundation\Application;
  
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -35,6 +36,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         Livewire::component('handmail::show-all-template', ShowAllTemplates::class);
         Livewire::component('handmail::create-template', CreateTemplate::class);
         Livewire::component('handmail::edit-template', EditTemplate::class);
+
+        Livewire::component('handmail::file-uploader', FileUploader::class);
 
         $handmail->discoverBlocks(config('handmail.blocks.path'));
     }

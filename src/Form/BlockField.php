@@ -38,6 +38,18 @@ class BlockField extends Field
         return $this;
     }
 
+    public function getRenderData()
+    {
+        $data = [];
+
+        foreach ($this->fields as $key => $field) {
+            $data[$key] = 
+                $field->context($this->context['items'][$key])->getRenderData();
+        }
+        
+        return $data;
+    }
+
     protected function view(): string
     {
         return 'handmail::form.block';
@@ -54,6 +66,21 @@ class BlockField extends Field
                 )->toArray()
         ]);
     } 
+
+    public function saving(): array
+    {
+        foreach ($this->fields as $key => $field) {
+            $field->context($this->context['items'][$key]);
+
+            if (method_exists($field, 'saving')) {
+                $field->saving();
+            }
+
+            $this->context['items'][$key] = $field->context;
+        }
+
+        return $this->context;
+    }
 
     protected function properties(): Collection
     {
