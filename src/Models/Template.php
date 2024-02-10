@@ -63,11 +63,6 @@ class Template extends Model
             'layoutName' => $this->structure['layout']['name'],
             'values' => $layoutData
         ]);
-
-        return view('handmail::webview', [
-            'model' => $this, 
-            'values' => $values
-        ]);
     }
 
     /**
