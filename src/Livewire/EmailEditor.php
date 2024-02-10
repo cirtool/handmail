@@ -17,6 +17,19 @@ abstract class EmailEditor extends Component
 
     protected $listeners = ['modelValueDefined'];
 
+    public function storeOnSession(): void
+    {
+        session([$this->getSessionKey() => [
+            'layout' => $this->layout,
+            'blocks' => $this->blocks
+        ]]);
+    }
+
+    public function getSessionKey(): string
+    {
+        return 'email-' . $this->template->uuid . '-' . $this->id;
+    }
+
     public function updatingSelectedLayout($value, $key)
     {
         $this->layout = Handmail::findLayout($value)

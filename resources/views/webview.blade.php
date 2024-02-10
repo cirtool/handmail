@@ -1,7 +1,7 @@
-@extends($model->structure['layout']['name'], $values)
+@extends($layoutName, $values)
 
 @section('content')
-    @foreach ($model->structure['blocks'] as $block)
+    @foreach ($blocks as $block)
         {!! Handmail::findBlock($block['name'])->context($block)->render() !!}
     @endforeach
 @endsection

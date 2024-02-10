@@ -26,6 +26,8 @@ class EditTemplate extends EmailEditor
 
     public function render()
     {
+        $this->storeOnSession();
+        
         return view('handmail::livewire.templates.edit-template')
             ->layout('handmail::components.layouts.panel');
     }

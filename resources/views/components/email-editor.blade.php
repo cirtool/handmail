@@ -86,7 +86,7 @@
     }"
   >
     <iframe 
-      src="{{ route('handmail.template-webview', ['template' => $this->template, 'q' => \Illuminate\Support\Str::random()]) }}" 
+      src="{{ route('handmail.template-webview', ['template' => $this->template, 'version' => \Illuminate\Support\Str::random(), 'preview' => $this->getSessionKey()]) }}" 
       frameborder="0" 
       class="w-full border border-gray-200 rounded-md transition-all ease-in-out bg-white bg-opacity-75 backdrop-blur backdrop-filter"
       x-bind:class="{
