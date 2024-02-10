@@ -9,6 +9,8 @@
 
     @livewireStyles
 
+    <style>[x-cloak] { display: none !important; }</style>
+
     <link rel="stylesheet" href="{{ mix('app.css', 'vendor/handmail') }}">
     <script defer src="{{ mix('app.js', 'vendor/handmail') }}"></script>
 </head>
