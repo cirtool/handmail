@@ -2,6 +2,7 @@
 
 namespace Cirtool\Handmail\Form;
 
+use Cirtool\Handmail\Handmail;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Collection;
@@ -32,7 +33,8 @@ abstract class Field implements Renderable
 
     public function render()
     {
-        return view($this->name, $this->getRenderData());
+        $twig = app(Handmail::class)->getTwig();
+        return $twig->render($this->name, $this->getRenderData());
     }
 
     public function getRenderData()

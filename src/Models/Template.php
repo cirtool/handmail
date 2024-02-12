@@ -6,10 +6,12 @@ use Cirtool\Handmail\Facades\Handmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Cirtool\Handmail\Traits\HasUuid;
- 
+use Cirtool\Handmail\Traits\HasWebview;
+
 class Template extends Model
 {
     use HasUuid;
+    use HasWebview;
     
     /**
      * The table associated with the model.
@@ -51,18 +53,6 @@ class Template extends Model
         static::saving(function (Template &$template) {
             $template->html = $template->webview();
         });
-    }
-
-    public function webview()
-    {
-        $layoutData = Handmail::findLayout($this->structure['layout']['name'])
-            ->context($this->structure['layout'])->getRenderData();
-
-        return view('handmail::webview', [
-            'blocks' => $this->structure['blocks'], 
-            'layoutName' => $this->structure['layout']['name'],
-            'values' => $layoutData
-        ]);
     }
 
     /**

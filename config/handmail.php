@@ -29,7 +29,7 @@ return [
     */
 
     'blocks' => [
-        'path' => resource_path('views/handmail'),
+        'path' => resource_path('handmail'),
         'field' => \Cirtool\Handmail\Form\BlockField::class
     ],
 

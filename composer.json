@@ -17,7 +17,8 @@
     "require": {
         "laravel/framework": "^10.20",
         "livewire/livewire": "^2.12",
-        "yosymfony/toml": "^1.0"
+        "yosymfony/toml": "^1.0",
+        "twig/twig": "^3.8"
     },
     "require-dev": {
         "pestphp/pest": "^2.20",

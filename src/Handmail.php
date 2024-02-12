@@ -4,6 +4,8 @@ namespace Cirtool\Handmail;
 
 use Cirtool\Handmail\Form\BlockField;
 use Yosymfony\Toml\Toml;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use RecursiveDirectoryIterator;
@@ -23,8 +25,18 @@ class Handmail
      */
     protected Collection $blocks;
 
+    /**
+     * Twig instance.
+     */
+    protected Environment $twig;
+
     function __construct() {
         $this->blocks = collect();
+
+        $loader = new FilesystemLoader(config('handmail.blocks.path'));
+        $loader->addPath(__DIR__.'/../resources/twig', 'handmail');
+
+        $this->twig = new Environment($loader);
     }
 
     /**
@@ -33,6 +45,11 @@ class Handmail
     public function getVersion(): string
     {
         return self::VERSION;
+    }
+
+    public function getTwig(): Environment
+    {
+        return $this->twig;
     }
 
     public function getBlocks(): Collection
