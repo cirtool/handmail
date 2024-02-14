@@ -34,7 +34,7 @@ class CreateTemplate extends Component
         $template = Template::make($validated);
         $template->structure = [
             'layout' => Handmail::findLayout($validated['layout'])
-                ->data(['model' => 'layout']),
+                ->data(['model' => 'structure.layout']),
             'blocks' => []
         ];
         $template->save();
