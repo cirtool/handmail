@@ -48,7 +48,9 @@
         </tr>
       @empty
         <tr>
-          <td colspan="4">No templates found.</td>
+          <x-handmail::td colspan="4" :is-primary="true">
+            {{ __('No templates found.') }}
+          </x-handmail::td>
         </tr>
       @endforelse
     </x-slot:body>
