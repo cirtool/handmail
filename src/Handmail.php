@@ -34,8 +34,6 @@ class Handmail
         $this->blocks = collect();
 
         $loader = new FilesystemLoader(config('handmail.blocks.path'));
-        $loader->addPath(__DIR__.'/../resources/twig', 'handmail');
-
         $this->twig = new Environment($loader);
     }
 
