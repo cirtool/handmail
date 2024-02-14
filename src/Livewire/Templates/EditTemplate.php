@@ -18,10 +18,8 @@ class EditTemplate extends EmailEditor
     {
         $this->template = $template;
 
-        $this->layout = $template['structure']['layout'];
-        $this->selectedLayout = $this->layout['name'];
-
-        $this->blocks = $template['structure']['blocks'];
+        $this->structure = $template['structure'];
+        $this->selectedLayout = $this->structure['layout']['name'];
     }
 
     public function render()
@@ -36,11 +34,7 @@ class EditTemplate extends EmailEditor
     {
         $this->fireBlockEvent('saving');
 
-        $this->template->structure = [
-            'layout' => $this->layout, 
-            'blocks' => $this->blocks
-        ];
-
+        $this->template->structure = $this->structure;
         $this->template->save();
 
         $this->fireBlockEvent('saved');

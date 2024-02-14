@@ -9,20 +9,15 @@ use Livewire\Component;
 
 abstract class EmailEditor extends Component
 {
-    public array $layout = [];
+    public array $structure = [];
 
     public string $selectedLayout;
-
-    public array $blocks = [];
 
     protected $listeners = ['modelValueDefined'];
 
     public function storeOnSession(): void
     {
-        session([$this->getSessionKey() => [
-            'layout' => $this->layout,
-            'blocks' => $this->blocks
-        ]]);
+        session([$this->getSessionKey() => $this->structure]);
     }
 
     public function getSessionKey(): string
@@ -32,7 +27,7 @@ abstract class EmailEditor extends Component
 
     public function updatingSelectedLayout($value, $key)
     {
-        $this->layout = Handmail::findLayout($value)
+        $this->structure['layout'] = Handmail::findLayout($value)
             ->data(['model' => 'layout'])->toArray();
     }
 
@@ -40,17 +35,17 @@ abstract class EmailEditor extends Component
     {
         $block = Handmail::findBlock($name);
 
-        $this->blocks[] = $block->data([
-            'model' => 'blocks.' . count($this->blocks)
+        $this->structure['blocks'][] = $block->data([
+            'model' => 'structure.blocks.' . count($this->structure['blocks'])
         ])->toArray();
     }
 
     public function removeBlock(string $id)
     {
-        $index = collect($this->blocks)
+        $index = collect($this->structure['blocks'])
             ->search(fn ($block) => $block['id'] == $id);
 
-        unset($this->blocks[$index]);
+        unset($this->structure['blocks'][$index]);
     }
 
     public function getAvailableBlocks(): Collection
@@ -71,7 +66,7 @@ abstract class EmailEditor extends Component
     {
         $blocks = [];
 
-        foreach ($this->blocks as $key => $block) {
+        foreach ($this->structure['blocks'] as $key => $block) {
             $blocks[$key] = Handmail::findBlock($block['name'])->context($block);
         }
 
@@ -80,15 +75,16 @@ abstract class EmailEditor extends Component
     
     protected function fireBlockEvent(string $event): void
     {
-        $layout = Handmail::findLayout($this->layout['name'])->context($this->layout);
+        $layout = Handmail::findLayout($this->structure['layout']['name'])
+            ->context($this->structure['layout']);
 
         if (method_exists($layout, $event)) {
-            $this->layout = $layout->{$event}();
+            $this->structure['layout'] = $layout->{$event}();
         }
 
         foreach ($this->getBlocks() as $key => $block) {
             if (method_exists($block, $event)) {
-                $this->blocks[$key] = $block->{$event}();
+                $this->structure['blocks'][$key] = $block->{$event}();
             }
         }
     }

@@ -9,7 +9,7 @@
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex-1">
         <x-handmail::tab-item name="blocks">
           <div class="space-y-4" x-data="{ openModal: false }">
-            @foreach ($this->blocks as $block)
+            @foreach ($this->structure['blocks'] as $block)
               <div wire:key="{{ $block['id'] }}">
                 {!! Handmail::findBlock($block['name'])->context($block)->renderForm() !!}
               </div>
@@ -67,7 +67,8 @@
                 </option>
               @endforeach
             </x-handmail::select>
-            {!! Handmail::findLayout($this->layout['name'])->context($this->layout)->renderForm() !!}
+            {!! Handmail::findLayout($this->structure['layout']['name'])
+              ->context($this->structure['layout'])->renderForm() !!}
           </div>
         </x-handmail::tab-item>
         {{ $slot }}
