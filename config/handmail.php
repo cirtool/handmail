@@ -45,9 +45,9 @@ return [
     
     'fields' => [
         'text' => \Cirtool\Handmail\Form\TextField::class,
-        'select' => \Cirtool\Handmail\Form\SelectField::class,
-        'color' => \Cirtool\Handmail\Form\ColorField::class,
-        'file' => \Cirtool\Handmail\Form\FileField::class,
+        // 'select' => \Cirtool\Handmail\Form\SelectField::class,
+        // 'color' => \Cirtool\Handmail\Form\ColorField::class,
+        // 'file' => \Cirtool\Handmail\Form\FileField::class,
     ],
 
     /*

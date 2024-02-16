@@ -61,14 +61,14 @@
         <x-handmail::tab-item name="layout">
           <div class="space-y-4">
             <x-handmail::select wire:model="selectedLayout">
-              @foreach (Handmail::getLayouts() as $layout)
+              @foreach ($this->layouts as $layout)
                 <option value="{{ $layout->name }}">
                   {{ $layout->label }}
                 </option>
               @endforeach
             </x-handmail::select>
-            {!! Handmail::findLayout($this->structure['layout']['name'])
-              ->context($this->structure['layout'])->renderForm() !!}
+            {!! $this->findLayout($this->structure['layout']['name'])
+                  ->context($this->structure['layout'])->renderForm() !!}
           </div>
         </x-handmail::tab-item>
         {{ $slot }}

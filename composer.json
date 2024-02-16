@@ -15,10 +15,11 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "laravel/framework": "^10.20",
+        "laravel/framework": "^10.40",
         "livewire/livewire": "^2.12",
         "yosymfony/toml": "^1.0",
-        "twig/twig": "^3.8"
+        "twig/twig": "^3.8",
+        "symfony/yaml": "^6.4"
     },
     "require-dev": {
         "pestphp/pest": "^2.20",

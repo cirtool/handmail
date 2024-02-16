@@ -2,8 +2,8 @@
 
 namespace Cirtool\Handmail\Traits;
 
+use Cirtool\Handmail\BlockType;
 use Cirtool\Handmail\Handmail;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,15 +19,16 @@ trait HasWebview
         
         $handmail = app(Handmail::class);
         $twig = $handmail->getTwig();
+        $factory = $handmail->getBlockFactory();
 
-        $layoutData = $handmail->findLayout($structure['layout']['name'])
+        $layoutData = $factory->find($structure['layout']['name'], BlockType::Layout)
             ->context($structure['layout'])->getRenderData();
 
         $layoutData['content'] = '';
 
         foreach ($structure['blocks'] as $block) {
             $layoutData['content'] .= 
-                $handmail->findBlock($block['name'])->context($block)->render();
+                $factory->find($block['name'])->context($block)->render();
         }
 
         return $twig->render($structure['layout']['name'], $layoutData);

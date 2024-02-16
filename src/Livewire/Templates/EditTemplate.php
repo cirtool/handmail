@@ -2,7 +2,6 @@
 
 namespace Cirtool\Handmail\Livewire\Templates;
 
-use Cirtool\Handmail\Facades\Handmail;
 use Cirtool\Handmail\Livewire\EmailEditor;
 use Cirtool\Handmail\Models\Template;
 

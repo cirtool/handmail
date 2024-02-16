@@ -2,7 +2,8 @@
 
 namespace Cirtool\Handmail\Traits;
 
-use Cirtool\Handmail\Facades\Handmail;
+use Cirtool\Handmail\BlockType;
+use Cirtool\Handmail\Handmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
@@ -16,12 +17,15 @@ trait HasStructure
      */
     protected function structure(): Attribute
     {
+        
+
         return Attribute::make(
             get: function ($value) {
                 $output = json_decode($value, associative: true);
+                $factory = app(Handmail::class)->getBlockFactory();
 
                 foreach ($output['blocks'] as &$block) {
-                    $blockField = Handmail::findBlock($block['name'])->context($block);
+                    $blockField = $factory->find($block['name'])->context($block);
                     
                     foreach ($blockField->getFields() as $key => $field) {
                         if (! array_key_exists($key, $block['items'])) {
@@ -32,7 +36,7 @@ trait HasStructure
                     }
                 }
 
-                $layout = Handmail::findLayout($output['layout']['name'])
+                $layout = $factory->find($output['layout']['name'], BlockType::Layout)
                     ->context($output['layout']);
 
                 foreach ($layout->getFields() as $key => $field) {

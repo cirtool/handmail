@@ -7,10 +7,10 @@
         <x-handmail::input label="Template Name" wire:model.defer="name" />
 
         <x-handmail::select wire:model.defer="layout" label="Layout">
-            @foreach (Handmail::getLayouts() as $layout)
-            <option value="{{ $layout->name }}">
-                {{ $layout->label }}
-            </option>
+            @foreach ($this->layouts as $layout)
+                <option value="{{ $layout->name }}">
+                    {{ $layout->label }}
+                </option>
             @endforeach
         </x-handmail::select>
     

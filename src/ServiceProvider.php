@@ -39,7 +39,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         Livewire::component('handmail::file-uploader', FileUploader::class);
 
-        $handmail->discoverBlocks(config('handmail.blocks.path'));
+        $handmail->getBlockFactory()->discover();
     }
 
     /**

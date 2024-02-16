@@ -2,8 +2,8 @@
 
 namespace Cirtool\Handmail\Livewire;
 
-use Cirtool\Handmail\Facades\Handmail;
-use Cirtool\Handmail\Form\BlockField;
+use Cirtool\Handmail\BlockType;
+use Cirtool\Handmail\Handmail;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
@@ -27,13 +27,16 @@ abstract class EmailEditor extends Component
 
     public function updatingSelectedLayout($value, $key)
     {
-        $this->structure['layout'] = Handmail::findLayout($value)
+        $factory = app(Handmail::class)->getBlockFactory();
+
+        $this->structure['layout'] = $factory->find($value, BlockType::Layout)
             ->data(['model' => 'layout'])->toArray();
     }
 
     public function appendBlock(string $name)
     {
-        $block = Handmail::findBlock($name);
+        $factory = app(Handmail::class)->getBlockFactory();
+        $block = $factory->find($name);
 
         $this->structure['blocks'][] = $block->data([
             'model' => 'structure.blocks.' . count($this->structure['blocks'])
@@ -50,7 +53,8 @@ abstract class EmailEditor extends Component
 
     public function getAvailableBlocks(): Collection
     {
-        return Handmail::getBlocks();
+        $factory = app(Handmail::class)->getBlockFactory();
+        return $factory->all();
     }
 
     public function modelValueDefined($key, $value): void
@@ -64,18 +68,33 @@ abstract class EmailEditor extends Component
 
     public function getBlocks(): array
     {
+        $factory = app(Handmail::class)->getBlockFactory();
         $blocks = [];
 
         foreach ($this->structure['blocks'] as $key => $block) {
-            $blocks[$key] = Handmail::findBlock($block['name'])->context($block);
+            $blocks[$key] =$factory->find($block['name'])->context($block);
         }
 
         return $blocks;
     }
+
+    public function getLayoutsProperty(): Collection
+    {
+        $factory = app(Handmail::class)->getBlockFactory();
+        return $factory->all(BlockType::Layout);
+    }
+
+    public function findLayout(string $name)
+    {
+        $factory = app(Handmail::class)->getBlockFactory();
+        return $factory->find($name, BlockType::Layout);
+    }
     
     protected function fireBlockEvent(string $event): void
     {
-        $layout = Handmail::findLayout($this->structure['layout']['name'])
+        $factory = app(Handmail::class)->getBlockFactory();
+
+        $layout = $factory->find($this->structure['layout']['name'], BlockType::Layout)
             ->context($this->structure['layout']);
 
         if (method_exists($layout, $event)) {

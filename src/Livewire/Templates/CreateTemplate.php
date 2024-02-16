@@ -2,9 +2,11 @@
 
 namespace Cirtool\Handmail\Livewire\Templates;
 
+use Cirtool\Handmail\BlockType;
 use Livewire\Component;
-use Cirtool\Handmail\Facades\Handmail;
+use Cirtool\Handmail\Handmail;
 use Cirtool\Handmail\Models\Template;
+use Illuminate\Support\Collection;
 
 class CreateTemplate extends Component
 {
@@ -19,7 +21,7 @@ class CreateTemplate extends Component
 
     public function mount()
     {
-        $this->layout = (Handmail::getLayouts()->first())->name;
+        $this->layout = ($this->layouts)->first()->name;
     }
 
     public function render()
@@ -30,10 +32,11 @@ class CreateTemplate extends Component
     public function store()
     {
         $validated = $this->validate();
+        $factory = app(Handmail::class)->getBlockFactory();
 
         $template = Template::make($validated);
         $template->structure = [
-            'layout' => Handmail::findLayout($validated['layout'])
+            'layout' => $factory->find($validated['layout'], BlockType::Layout)
                 ->data(['model' => 'structure.layout']),
             'blocks' => []
         ];
@@ -42,5 +45,11 @@ class CreateTemplate extends Component
         return redirect()->route('handmail.edit-template', [
             'template' => $template
         ]);
+    }
+
+    public function getLayoutsProperty(): Collection
+    {
+        $factory = app(Handmail::class)->getBlockFactory();
+        return $factory->all(BlockType::Layout);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Cirtool\Handmail\Form;
 
+use Cirtool\Handmail\BlockType;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -9,7 +10,7 @@ class BlockField extends Field
 {
     public string $label;
 
-    public bool $isLayout = false;
+    public BlockType $type;
 
     protected Collection $fields;
 
