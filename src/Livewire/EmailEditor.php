@@ -66,7 +66,7 @@ abstract class EmailEditor extends Component
         }
     }
 
-    public function getBlocks(): array
+    public function getBlocksProperty(): array
     {
         $factory = app(Handmail::class)->getBlockFactory();
         $blocks = [];

@@ -9,9 +9,9 @@
       <div class="px-4 sm:px-6 lg:px-8 py-4 flex-1">
         <x-handmail::tab-item name="blocks">
           <div class="space-y-4" x-data="{ openModal: false }">
-            @foreach ($this->structure['blocks'] as $block)
-              <div wire:key="{{ $block['id'] }}">
-                {!! Handmail::findBlock($block['name'])->context($block)->renderForm() !!}
+            @foreach ($this->blocks as $block)
+              <div wire:key="{{ $block->context['id'] }}">
+                {!! $block->renderForm() !!}
               </div>
             @endforeach
             <button 
