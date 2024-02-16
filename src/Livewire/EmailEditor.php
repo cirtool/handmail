@@ -101,7 +101,7 @@ abstract class EmailEditor extends Component
             $this->structure['layout'] = $layout->{$event}();
         }
 
-        foreach ($this->getBlocks() as $key => $block) {
+        foreach ($this->blocks as $key => $block) {
             if (method_exists($block, $event)) {
                 $this->structure['blocks'][$key] = $block->{$event}();
             }
