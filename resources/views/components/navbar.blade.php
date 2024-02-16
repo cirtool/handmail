@@ -1,5 +1,5 @@
 <nav 
-    class="border-b border-gray-200 bg-white bg-opacity-75 backdrop-blur backdrop-filter sticky top-0 z-50"
+    class="border-b border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 bg-opacity-75 backdrop-blur backdrop-filter sticky top-0 z-50"
     x-data="{ openMobileNav: false }"
 >
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
@@ -7,15 +7,15 @@
             <div class="flex">
                 <div class="flex flex-shrink-0 items-center">
                     <img class="block h-8 w-auto lg:hidden"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        src="https://tailwindui.com/img/logos/mark.svg?color=pink&shade=800"
                         alt="Your Company">
                     <img class="hidden h-8 w-auto lg:block"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        src="https://tailwindui.com/img/logos/mark.svg?color=pink&shade=800"
                         alt="Your Company">
                 </div>
                 <div class="flex flex-col justify-center ml-4">
-                    <p class="text-sm leading-tight font-medium text-gray-800">Handmail</p>
-                    <p class="text-xs text-gray-600 leading-tight">
+                    <p class="text-sm leading-tight font-medium text-gray-800 dark:text-zinc-200">Handmail</p>
+                    <p class="text-xs text-gray-600 dark:text-zinc-400 leading-tight">
                         {{ Handmail::getVersion() }} by Cirtool
                     </p>
                 </div>

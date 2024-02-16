@@ -1,7 +1,7 @@
 @props(['tabs' => [], 'footer'])
 
 <div {{ $attributes->merge(['class' => 'flex flex-col md:flex-row']) }}>
-  <div class="flex flex-col w-full max-w-2xl bg-white bg-opacity-75 backdrop-blur backdrop-filter border-r border-gray-200">
+  <div class="flex flex-col w-full max-w-2xl bg-white dark:bg-zinc-900 bg-opacity-75 backdrop-blur backdrop-filter border-r border-gray-200 dark:border-zinc-700">
     <x-handmail::tabs 
       :items="array_merge(['blocks' => 'Email Blocks', 'layout' => 'Layout'], $tabs)"
       class="flex-1 px-4 sm:px-6 lg:px-8 sticky top-12 -mt-px z-10"
@@ -16,7 +16,7 @@
             @endforeach
             <button 
               type="button" 
-              class="w-full rounded-md bg-indigo-50 px-2 py-1 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
+              class="w-full rounded-md dark:bg-zinc-800 px-2 py-1 text-sm font-semibold text-pink-700 shadow-sm dark:hover:bg-zinc-700"
               x-on:click="openModal = true"
             >
               Add Block
@@ -75,7 +75,7 @@
       </div>
     </x-handmail::tabs>
     @if (isset($footer))
-      <footer {{ $footer->attributes->merge(['class' => 'border-t border-gray-200 px-4 sm:px-6 lg:px-8 py-2 bg-white bg-opacity-75 backdrop-blur backdrop-filter sticky bottom-0']) }}>
+      <footer {{ $footer->attributes->merge(['class' => 'border-t border-zinc-700 px-4 sm:px-6 lg:px-8 py-2 bg-zin-900 bg-opacity-75 backdrop-blur backdrop-filter sticky bottom-0']) }}>
         {{ $footer }}
       </footer>
     @endif
@@ -89,7 +89,7 @@
     <iframe 
       src="{{ route('handmail.template-webview', ['template' => $this->template, 'version' => \Illuminate\Support\Str::random(), 'preview' => $this->getSessionKey()]) }}" 
       frameborder="0" 
-      class="w-full border border-gray-200 rounded-md transition-all ease-in-out bg-white bg-opacity-75 backdrop-blur backdrop-filter"
+      class="w-full border border-gray-200 dark:border-zinc-700 rounded-md transition-all ease-in-out bg-white dark:bg-zinc-900 bg-opacity-75 backdrop-blur backdrop-filter"
       x-bind:class="{
         'max-w-screen-lg max-h-[700px]': active == 'desktop',
         'max-w-screen-md max-h-[900px]': active == 'tablet',
@@ -98,7 +98,7 @@
     ></iframe>
     <div class="flex space-x-4 justify-center absolute top-4 left-0 right-0 px-4 sm:px-6 lg:px-8">
       <button 
-        class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+        class="rounded-lg px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-0 ring-inset bg-zinc-900 text-pink-200"
         x-on:click.prevent="active = 'desktop'"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -106,7 +106,7 @@
         </svg>
       </button>
       <button 
-        class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+        class="rounded-lg px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-0 ring-inset bg-zinc-900 text-pink-200"
         x-on:click.prevent="active = 'tablet'"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -114,7 +114,7 @@
         </svg>
       </button>
       <button 
-        class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+        class="rounded-lg px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-0 ring-inset bg-zinc-900 text-pink-200"
         x-on:click.prevent="active = 'mobile'"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

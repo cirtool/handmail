@@ -16,7 +16,7 @@
 </head>
 
 <body class="h-full">
-    <div class="min-h-screen flex flex-col shrink-0">
+    <div class="min-h-screen flex flex-col shrink-0 bg-gray-100 dark:bg-zinc-800">
         <x-handmail::navbar />
 
         {{ $slot }}
