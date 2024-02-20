@@ -28,7 +28,7 @@
           <x-handmail::td :is-primary="true">
             <a 
               href="{{ route('handmail.edit-template', ['template' => $template]) }}" 
-              class="text-indigo-600 hover:text-indigo-900"
+              class="text-pink-500 hover:text-pink-400 transition"
             >
             {{ $template->name }}
             </a>
